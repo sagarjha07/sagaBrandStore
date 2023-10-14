@@ -66,4 +66,4 @@ yarn-error.log
 /coverage
 
 #environment variables
-./env
+.env
