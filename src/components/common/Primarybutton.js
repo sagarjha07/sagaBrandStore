@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.orange,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: Sizes.x5,
+    borderRadius: Sizes.x9,
   },
   title: {
     color: Colors.white,

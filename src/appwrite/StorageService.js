@@ -15,13 +15,10 @@ class StorageService {
     this.storage = new Storage(this.client);
   }
 
-  async getImageById(id) {
+  getImageById(id) {
     try {
-      const result = await storage.getFileDownload(
-        APPWRITE_IMAGES_BUCKET_ID,
-        id,
-      );
-      return result;
+      const result = this.storage.getFilePreview(APPWRITE_IMAGES_BUCKET_ID, id);
+      return result.toJSON();
     } catch (error) {
       console.log('Error in getImageById::', error);
     }
