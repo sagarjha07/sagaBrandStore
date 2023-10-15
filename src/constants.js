@@ -15,6 +15,7 @@ export const FontSize = {
   medium: 16,
   xmedium: 18,
   large: 24,
+  slarge: 36,
   xlarge: 44,
 };
 
@@ -40,3 +41,5 @@ export const Sizes = {
   x19: 190,
   x20: 200,
 };
+
+export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
