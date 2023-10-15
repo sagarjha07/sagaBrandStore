@@ -1,65 +1,67 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {Colors, FontFamily, FontSize, Sizes} from '../constants';
-import FilterList from '../components/HomeScreenComponents/FilterList';
+import HeaderComponent from '../components/HomeScreenComponents/HeaderComponent';
+import ProductCard from '../components/HomeScreenComponents/ProductCard';
+import databaseService from '../appwrite/DatabaseService';
 
 const HomeScreen = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    const getPosts = async () => {
+      const res = await databaseService.getAllProducts();
+      setPosts(res.documents);
+      setLoading(false);
+    };
+    getPosts();
+  }, []);
+
+  if (loading === true) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size={'large'} color={Colors.orange} />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image
-          source={require('../../assets/icons/tab.png')}
-          style={styles.img}
-        />
-        <Image
-          source={require('../../assets/icons/profile.png')}
-          style={styles.img}
-        />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Explore</Text>
-        <Text style={styles.subTitle}>Best trendy collection!</Text>
-      </View>
-      <View style={styles.filterContainer}>
-        <FilterList />
-      </View>
-    </View>
+    <FlatList
+      data={[...posts, ...posts]}
+      style={styles.productList}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponent={<HeaderComponent />}
+      renderItem={({item, index}) => {
+        return (
+          <View style={{paddingLeft: index % 2 === 1 ? Sizes.x3 : null}}>
+            <ProductCard data={item} />
+          </View>
+        );
+      }}
+      numColumns={2}
+      keyExtractor={(item, index) => index.toString()}
+    />
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  productList: {
     backgroundColor: Colors.white,
-    paddingTop: Sizes.x3,
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingHorizontal: Sizes.x3,
   },
-  img: {
-    height: Sizes.x3,
-    width: Sizes.x3,
-  },
-  textContainer: {
-    paddingVertical: Sizes.x2,
-    paddingHorizontal: Sizes.x3,
-  },
-  title: {
-    fontFamily: FontFamily.regular,
-    fontSize: FontSize.slarge,
-    color: Colors.black,
-  },
-  subTitle: {
-    fontFamily: FontFamily.regular,
-    fontSize: FontSize.xmedium,
-    color: Colors.lightGrey,
-  },
-  filterContainer: {
-    paddingBottom: Sizes.x3,
-    marginLeft: Sizes.x3,
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

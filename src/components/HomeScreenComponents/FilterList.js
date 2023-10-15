@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Colors,
   FontFamily,
@@ -10,15 +10,26 @@ import {
 
 const FilterList = () => {
   const [current, setCurrent] = useState(0);
+  const ref = useRef();
   const onFilterClick = index => {
     //TODO:implement Api call
     setCurrent(index);
+    scrollToFilter(index);
   };
+
+  const scrollToFilter = index => {
+    ref?.current?.scrollToIndex({
+      animated: true,
+      index: index,
+    });
+  };
+
   return (
     <FlatList
       showsHorizontalScrollIndicator={false}
       horizontal={true}
       data={productFilterData}
+      ref={ref}
       renderItem={({item, index}) => {
         return (
           <TouchableOpacity
