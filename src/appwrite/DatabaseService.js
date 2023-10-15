@@ -1,4 +1,4 @@
-const {Client, Databases} = require('appwrite');
+const {Client, Databases, Query} = require('appwrite');
 import {
   APPWRITE_API_ENDPOINT,
   APPWRITE_PROJECT_ID,
@@ -25,6 +25,19 @@ class DataBaseService {
       return result;
     } catch (error) {
       console.log('Error in getAllProducts::', error);
+    }
+  }
+
+  async getAllProductsWithFilter(filter) {
+    try {
+      const result = await this.database.listDocuments(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
+        [Query.equal('type', filter)],
+      );
+      return result;
+    } catch (error) {
+      console.log('Error in getAllProductsWithFilter::', error);
     }
   }
 }
