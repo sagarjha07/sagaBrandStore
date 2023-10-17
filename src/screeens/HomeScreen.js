@@ -35,13 +35,17 @@ const HomeScreen = () => {
 
   return (
     <FlatList
-      data={[...posts, ...posts]}
+      data={posts}
       style={styles.productList}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={<HeaderComponent />}
       renderItem={({item, index}) => {
         return (
-          <View style={{paddingLeft: index % 2 === 1 ? Sizes.x3 : null}}>
+          <View
+            style={{
+              paddingLeft: index % 2 === 1 ? Sizes.x3 : null,
+              marginBottom: index === posts.length - 1 ? Sizes.x7 : null,
+            }}>
             <ProductCard data={item} />
           </View>
         );
