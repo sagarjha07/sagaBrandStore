@@ -3,6 +3,7 @@ export const Colors = {
   lightGrey: '#797780',
   white: '#FFF',
   orange: '#FF7A00',
+  red: 'red',
 };
 
 export const FontFamily = {

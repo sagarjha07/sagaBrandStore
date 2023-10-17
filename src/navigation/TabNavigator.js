@@ -58,13 +58,18 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({focused, color, size}) => {
             return (
-              <Image
-                source={require('../../assets/icons/cart.png')}
-                style={[
-                  styles.img,
-                  {tintColor: focused ? Colors.orange : Colors.white},
-                ]}
-              />
+              <View style={{position: 'relative'}}>
+                <Image
+                  source={require('../../assets/icons/cart.png')}
+                  style={[
+                    styles.img,
+                    {tintColor: focused ? Colors.orange : Colors.white},
+                  ]}
+                />
+                <View style={styles.cartNumber}>
+                  <Text style={{color: Colors.white}}>3</Text>
+                </View>
+              </View>
             );
           },
         }}
@@ -106,5 +111,17 @@ const styles = StyleSheet.create({
     right: Sizes.x1,
     borderRadius: Sizes.x2,
     opacity: 0.8,
+  },
+  cartNumber: {
+    position: 'absolute',
+    top: -Sizes.x1,
+    right: -Sizes.x1,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: Sizes.x2,
+    height: Sizes.x2,
+    borderRadius: Sizes.x1,
+    backgroundColor: Colors.red,
   },
 });
