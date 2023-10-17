@@ -42,4 +42,13 @@ export const Sizes = {
   x20: 200,
 };
 
+export const Routes = {
+  HOME: 'Home',
+  ONBOARDING: 'Onboarding',
+  SEARCH: 'Search',
+  CART: 'Cart',
+  HOME_TAB: 'HomeTab',
+  SETTINGS: 'Settings',
+};
+
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
