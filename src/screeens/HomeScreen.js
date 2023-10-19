@@ -7,22 +7,18 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Colors, FontFamily, FontSize, Sizes} from '../constants';
+import {Colors, Sizes} from '../constants';
 import HeaderComponent from '../components/HomeScreenComponents/HeaderComponent';
 import ProductCard from '../components/HomeScreenComponents/ProductCard';
 import databaseService from '../appwrite/DatabaseService';
+import {useDispatch, useSelector} from 'react-redux';
+import {getPostsAsync} from '../redux/slices/postsSlice';
 
 const HomeScreen = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {posts, loading} = useSelector(state => state.post);
+  const dispatch = useDispatch();
   useEffect(() => {
-    setLoading(true);
-    const getPosts = async () => {
-      const res = await databaseService.getAllProducts();
-      setPosts(res.documents);
-      setLoading(false);
-    };
-    getPosts();
+    dispatch(getPostsAsync());
   }, []);
 
   if (loading === true) {
