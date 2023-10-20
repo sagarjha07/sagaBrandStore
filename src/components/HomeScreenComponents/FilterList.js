@@ -12,7 +12,6 @@ const FilterList = () => {
   const [current, setCurrent] = useState(0);
   const ref = useRef();
   const onFilterClick = index => {
-    //TODO:implement Api call
     setCurrent(index);
     scrollToFilter(index);
   };
