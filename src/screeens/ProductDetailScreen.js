@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -20,7 +19,7 @@ import Primarybutton from '../components/common/Primarybutton';
 import NavigationBar from '../components/common/NavigationBar';
 
 const ProductDetailScreen = () => {
-  const [currentSizeIndex, setCurrentSizeIndex] = useState(0);
+  const [currentSizeIndex, setCurrentSizeIndex] = useState(2);
   const route = useRoute();
   const {name, price, imageUrl} = route.params;
   const onSizeClick = index => {
@@ -31,7 +30,7 @@ const ProductDetailScreen = () => {
       <ScrollView
         style={styles.container}
         showsHorizontalScrollIndicator={false}>
-        <NavigationBar title={'Product Details'} />
+        <NavigationBar title={name} />
         <Image source={{uri: imageUrl}} style={styles.img} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{name}</Text>

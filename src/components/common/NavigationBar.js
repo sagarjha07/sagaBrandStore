@@ -23,7 +23,9 @@ const NavigationBar = ({title}) => {
           source={require('../../../assets/icons/back.png')}
         />
       </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
+        {title}
+      </Text>
     </View>
   );
 };
