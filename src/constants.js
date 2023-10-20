@@ -44,12 +44,15 @@ export const Sizes = {
 };
 
 export const Routes = {
-  HOME: 'Home',
-  ONBOARDING: 'Onboarding',
-  SEARCH: 'Search',
-  CART: 'Cart',
-  HOME_TAB: 'HomeTab',
-  SETTINGS: 'Settings',
+  HOME: 'home',
+  ONBOARDING: 'onboarding',
+  SEARCH: 'search',
+  CART: 'cart',
+  HOME_TAB: 'homeTab',
+  SETTINGS: 'settings',
+  PRODUCT_DETAILS: 'productDetails',
 };
 
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
+
+export const productSizeArr = ['S', 'M', 'L', 'XL', 'XXL'];
