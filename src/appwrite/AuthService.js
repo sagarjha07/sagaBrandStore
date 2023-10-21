@@ -11,12 +11,13 @@ class AuthService {
     this.account = new Account(this.client);
   }
 
-  async signUp(email, password) {
+  async signUp(email, password, name) {
     try {
-      const res = await this.account.create(ID, email, password);
+      const res = await this.account.create(ID.unique(), email, password, name);
       return res;
     } catch (error) {
       console.log('Error in signUp::', error);
+      throw error;
     }
   }
 

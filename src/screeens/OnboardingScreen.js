@@ -2,14 +2,16 @@ import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import storageService from '../appwrite/StorageService';
 import {APPWRITE_ONBOARDING_IMAGE_FILE_ID} from '@env';
-import {Colors, FontFamily, FontSize, Sizes} from '../constants';
+import {Colors, FontFamily, FontSize, Routes, Sizes} from '../constants';
 import SecondaryButton from '../components/common/SecondaryButton';
 import Primarybutton from '../components/common/Primarybutton';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
 const OnboardingScreen = () => {
   const [imageUrl, setImageUrl] = useState(null);
+  const navigation = useNavigation();
 
   const getImageUrl = () => {
     return storageService.getImageById(APPWRITE_ONBOARDING_IMAGE_FILE_ID);
@@ -36,7 +38,7 @@ const OnboardingScreen = () => {
           width={'48%'}
           height={Sizes.x6}
           onPress={() => {
-            //TODO: implement auth
+            navigation.navigate(Routes.SIGNUP);
           }}
         />
         <Primarybutton
@@ -44,7 +46,7 @@ const OnboardingScreen = () => {
           width={'48%'}
           height={Sizes.x6}
           onPress={() => {
-            //TODO: implement auth
+            navigation.navigate(Routes.LOGIN);
           }}
         />
       </View>

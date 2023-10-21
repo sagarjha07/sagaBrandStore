@@ -51,6 +51,8 @@ export const Routes = {
   HOME_TAB: 'homeTab',
   SETTINGS: 'settings',
   PRODUCT_DETAILS: 'productDetails',
+  LOGIN: 'login',
+  SIGNUP: 'signup',
 };
 
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
