@@ -46,6 +46,7 @@ export const Sizes = {
 export const Routes = {
   HOME: 'home',
   ONBOARDING: 'onboarding',
+  SPLASH: 'splash',
   SEARCH: 'search',
   CART: 'cart',
   HOME_TAB: 'homeTab',
