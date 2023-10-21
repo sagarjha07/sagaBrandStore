@@ -49,7 +49,7 @@ const SignupScreen = () => {
       showToast(
         'success',
         'Account Created',
-        'You can now Login in your account 👋',
+        'You can now Login into your account 👋',
       );
     } catch (error) {
       showToast('error', 'Sign-Up error', error.message);
