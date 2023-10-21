@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   Pressable,
   ScrollView,
@@ -7,12 +8,18 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React from 'react';
-import {Colors, FontFamily, FontSize, Sizes} from '../constants';
+import React, {useState} from 'react';
+import {Colors, FontFamily, FontSize, Routes, Sizes} from '../constants';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import authService from '../appwrite/AuthService';
+import Modal from 'react-native-modal';
+import Toast from 'react-native-toast-message';
+import {useNavigation} from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -24,64 +31,84 @@ const LoginScreen = () => {
       .required('Password is required'),
   });
 
-  const onLoginClick = ({email, password}) => {};
+  const showToast = (type, title, subtitle) => {
+    Toast.show({
+      type: type,
+      text1: title,
+      text2: subtitle,
+    });
+  };
+
+  const onLoginClick = async ({email, password}, {resetForm}) => {
+    setLoading(true);
+    try {
+      const res = await authService.logIn(email, password);
+      resetForm({values: {email: '', password: ''}});
+      showToast('success', 'Login Success', 'Welcome to Saga Brand Store 👋');
+      navigation.reset({
+        index: 0,
+        routes: [{name: Routes.HOME_TAB}],
+      });
+    } catch (error) {
+      showToast('error', 'Login error', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <Text style={styles.subtitle}>Enter in the world of Saga-Store</Text>
-      <Formik
-        validationSchema={loginValidationSchema}
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => onLoginClick(values)}>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-          touched,
-        }) => {
-          return (
-            <View style={{marginTop: Sizes.x3}}>
-              <TextInput
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-                style={styles.textInput}
-                placeholder="Enter email address"
-              />
-              {errors.email && touched.email && (
-                <Text style={styles.errorText}>{errors.email}</Text>
-              )}
-              <TextInput
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-                style={[styles.textInput, {marginTop: Sizes.x5 / 2}]}
-                secureTextEntry
-                placeholder="Enter password"
-              />
-              {errors.password && touched.password && (
-                <Text style={styles.errorText}>{errors.password}</Text>
-              )}
-              <Pressable
-                style={[
-                  styles.btnContainer,
-                  {
-                    opacity: isValid ? 1 : 0.5,
-                  },
-                ]}
-                disabled={!isValid}
-                onPress={handleSubmit}>
-                <Text style={styles.btnText}>Let's Go</Text>
-              </Pressable>
-            </View>
-          );
-        }}
-      </Formik>
-    </ScrollView>
+    <>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Login</Text>
+        <Text style={styles.subtitle}>Enter in the world of Saga-Store</Text>
+        <Formik
+          validationSchema={loginValidationSchema}
+          initialValues={{email: '', password: ''}}
+          onSubmit={(values, {resetForm}) => onLoginClick(values, {resetForm})}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+            touched,
+          }) => {
+            return (
+              <View style={{marginTop: Sizes.x3}}>
+                <TextInput
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  style={styles.textInput}
+                  placeholder="Enter email address"
+                />
+                {errors.email && touched.email && (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                )}
+                <TextInput
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  style={[styles.textInput, {marginTop: Sizes.x5 / 2}]}
+                  secureTextEntry
+                  placeholder="Enter password"
+                />
+                {errors.password && touched.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
+                <Pressable style={[styles.btnContainer]} onPress={handleSubmit}>
+                  <Text style={styles.btnText}>Let's Go</Text>
+                </Pressable>
+              </View>
+            );
+          }}
+        </Formik>
+      </ScrollView>
+      <Modal isVisible={loading}>
+        <ActivityIndicator size={'large'} color={Colors.orange} />
+      </Modal>
+    </>
   );
 };
 

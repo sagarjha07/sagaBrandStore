@@ -111,14 +111,7 @@ const SignupScreen = () => {
                 {errors.password && touched.password && (
                   <Text style={styles.errorText}>{errors.password}</Text>
                 )}
-                <Pressable
-                  style={[
-                    styles.btnContainer,
-                    {
-                      opacity: isValid ? 1 : 0.5,
-                    },
-                  ]}
-                  onPress={handleSubmit}>
+                <Pressable style={[styles.btnContainer]} onPress={handleSubmit}>
                   <Text style={styles.btnText}>Create Account</Text>
                 </Pressable>
               </View>
