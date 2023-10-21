@@ -27,6 +27,7 @@ class AuthService {
       return res;
     } catch (error) {
       console.log('Error in Login::', error);
+      throw error;
     }
   }
 
@@ -35,6 +36,7 @@ class AuthService {
       await this.account.deleteSessions();
     } catch (error) {
       console.log('Error in logOut::', error);
+      throw error;
     }
   }
 
@@ -44,6 +46,7 @@ class AuthService {
       return res;
     } catch (error) {
       console.log('Error in getCurrentUser::', error);
+      throw error;
     }
   }
 }
