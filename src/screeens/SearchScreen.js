@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Colors, Sizes} from '../constants';
+import {Colors, FontFamily, FontSize, Sizes} from '../constants';
 import databaseService from '../appwrite/DatabaseService';
+import SearchCard from '../components/SearchScreenComponents/SearchCard';
 
 const SearchScreen = () => {
   const [productsList, setProductsList] = useState([]);
@@ -49,6 +50,11 @@ const SearchScreen = () => {
         />
       </View>
       <View style={styles.flatListContainer}>
+        {productsList.length > 0 && (
+          <Text style={styles.heading}>
+            {productsList.length} results found
+          </Text>
+        )}
         {loading ? (
           <View style={styles.loader}>
             <ActivityIndicator size={'large'} color={Colors.orange} />
@@ -58,9 +64,13 @@ const SearchScreen = () => {
             style={styles.flatList}
             showsVerticalScrollIndicator={false}
             data={productsList}
-            renderItem={({item}) => (
-              <View style={{width: 200, height: 400}}>
-                <Text>{item.name}</Text>
+            renderItem={({item, index}) => (
+              <View
+                style={{
+                  marginBottom:
+                    index === productsList.length - 1 ? Sizes.x9 : Sizes.x3,
+                }}>
+                <SearchCard item={item} />
               </View>
             )}
           />
@@ -75,7 +85,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.orange,
-    paddingHorizontal: Sizes.x3,
+    paddingHorizontal: Sizes.x2,
     paddingTop: Sizes.x4,
     paddingBottom: Sizes.x7,
   },
@@ -97,6 +107,12 @@ const styles = StyleSheet.create({
   },
   loader: {flex: 1, justifyContent: 'center', alignItems: 'center'},
   flatList: {
-    marginTop: Sizes.x5,
+    marginTop: Sizes.x2,
+  },
+  heading: {
+    fontFamily: FontFamily.regular,
+    color: Colors.lightGrey,
+    marginTop: Sizes.x1,
+    fontSize: FontSize.medium,
   },
 });
