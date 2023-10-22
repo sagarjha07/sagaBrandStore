@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -59,7 +60,9 @@ const SearchScreen = () => {
           <View style={styles.loader}>
             <ActivityIndicator size={'large'} color={Colors.orange} />
           </View>
-        ) : (
+        ) : searchStr !== null &&
+          searchStr.length > 0 &&
+          productsList.length > 0 ? (
           <FlatList
             style={styles.flatList}
             showsVerticalScrollIndicator={false}
@@ -74,6 +77,20 @@ const SearchScreen = () => {
               </View>
             )}
           />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Image
+              source={require('../../assets/icons/cart.png')}
+              style={styles.img}
+            />
+            <Text style={styles.emptyText}>
+              {searchStr === null || searchStr.length === 0
+                ? 'Explore branded products here...'
+                : productsList.length === 0
+                ? 'No results found'
+                : ''}
+            </Text>
+          </View>
         )}
       </View>
     </>
@@ -115,4 +132,7 @@ const styles = StyleSheet.create({
     marginTop: Sizes.x1,
     fontSize: FontSize.medium,
   },
+  emptyText: {opacity: 0.8, marginTop: 10},
+  img: {width: 120, height: 120, opacity: 0.5},
+  emptyContainer: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
