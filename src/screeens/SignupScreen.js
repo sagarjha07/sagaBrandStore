@@ -9,12 +9,11 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Colors, FontFamily, FontSize, Sizes} from '../constants';
+import {Colors, FontFamily, FontSize, Sizes, showToast} from '../constants';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import authService from '../appwrite/AuthService';
 import Modal from 'react-native-modal';
-import Toast from 'react-native-toast-message';
 
 const SignupScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -32,14 +31,6 @@ const SignupScreen = () => {
       .min(3, ({min}) => `Name must be atleast ${min} characters long`)
       .required('Name is required'),
   });
-
-  const showToast = (type, title, subtitle) => {
-    Toast.show({
-      type: type,
-      text1: title,
-      text2: subtitle,
-    });
-  };
 
   const onSignupClick = async ({email, password, name}, {resetForm}) => {
     setLoading(true);

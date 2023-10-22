@@ -12,7 +12,7 @@ const SplashScreen = () => {
     const getToken = async () => {
       try {
         const user = await AsyncStorage.getItem('user');
-        if (user != null) {
+        if (user !== null) {
           dispatch(updateUser(JSON.parse(user)));
         }
       } catch (e) {

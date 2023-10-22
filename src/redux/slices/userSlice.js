@@ -13,6 +13,7 @@ const userSlice = createSlice({
     updateUser: (state, action) => {
       state.user = action.payload;
       if (action.payload !== null) state.isLoggedIn = true;
+      else state.isLoggedIn = false;
     },
     updateSplashLoadingState: (state, action) => {
       state.loading = action.payload;

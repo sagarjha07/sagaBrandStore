@@ -1,3 +1,5 @@
+import Toast from 'react-native-toast-message';
+
 export const Colors = {
   black: '#0D0D0E',
   lightGrey: '#797780',
@@ -59,3 +61,11 @@ export const Routes = {
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
 
 export const productSizeArr = ['S', 'M', 'L', 'XL', 'XXL'];
+
+export const showToast = (type, title, subtitle) => {
+  Toast.show({
+    type: type,
+    text1: title,
+    text2: subtitle,
+  });
+};

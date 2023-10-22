@@ -9,12 +9,18 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Colors, FontFamily, FontSize, Routes, Sizes} from '../constants';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  Routes,
+  Sizes,
+  showToast,
+} from '../constants';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import authService from '../appwrite/AuthService';
 import Modal from 'react-native-modal';
-import Toast from 'react-native-toast-message';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {updateUser} from '../redux/slices/userSlice';
@@ -36,19 +42,10 @@ const LoginScreen = () => {
       .required('Password is required'),
   });
 
-  const showToast = (type, title, subtitle) => {
-    Toast.show({
-      type: type,
-      text1: title,
-      text2: subtitle,
-    });
-  };
-
   const onLoginClick = async ({email, password}, {resetForm}) => {
     setLoading(true);
     try {
       const res = await authService.logIn(email, password);
-      console.warn('res+++++++++', res);
       dispatch(updateUser(res));
       const jsonUser = JSON.stringify(res);
       await AsyncStorage.setItem('user', jsonUser);
