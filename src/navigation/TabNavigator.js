@@ -17,6 +17,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: Colors.orange,
         tabBarInactiveTintColor: Colors.white,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name={Routes.HOME}

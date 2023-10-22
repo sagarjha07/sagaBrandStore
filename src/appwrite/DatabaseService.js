@@ -40,6 +40,20 @@ class DataBaseService {
       console.log('Error in getAllProductsWithFilter::', error);
     }
   }
+
+  async getAllProductsWithSearchStr(searchStr) {
+    try {
+      const result = await this.database.listDocuments(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
+        [Query.search('name', searchStr)],
+      );
+
+      return result.documents;
+    } catch (error) {
+      console.log('Error in getAllProductsWithSearchStr::', error);
+    }
+  }
 }
 
 const databaseService = new DataBaseService();
