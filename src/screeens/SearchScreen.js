@@ -87,7 +87,7 @@ const SearchScreen = () => {
               {searchStr === null || searchStr.length === 0
                 ? 'Explore branded products here...'
                 : productsList.length === 0
-                ? 'No results found'
+                ? 'No product found'
                 : ''}
             </Text>
           </View>
