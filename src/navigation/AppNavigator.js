@@ -5,11 +5,13 @@ import ScreensNavigator from './ScreensNavigator';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Routes} from '../constants';
 import SplashScreen from '../screeens/SplashScreen';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  if (true) {
+  const {isLoggedIn, loading} = useSelector(state => state.user);
+  if (loading) {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -20,7 +22,7 @@ const AppNavigator = () => {
   }
   return (
     <NavigationContainer>
-      {true ? <AuthNavigator /> : <ScreensNavigator />}
+      {!isLoggedIn ? <AuthNavigator /> : <ScreensNavigator />}
     </NavigationContainer>
   );
 };

@@ -16,10 +16,15 @@ import authService from '../appwrite/AuthService';
 import Modal from 'react-native-modal';
 import Toast from 'react-native-toast-message';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {updateUser} from '../redux/slices/userSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -43,6 +48,10 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       const res = await authService.logIn(email, password);
+      console.warn('res+++++++++', res);
+      dispatch(updateUser(res));
+      const jsonUser = JSON.stringify(res);
+      await AsyncStorage.setItem('user', jsonUser);
       resetForm({values: {email: '', password: ''}});
       showToast('success', 'Login Success', 'Welcome to Saga Brand Store 👋');
       navigation.reset({
