@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
     borderRadius: Sizes.x3,
-    borderWidth: 1,
-    borderColor: Colors.red,
   },
   imageContainer: {
     width: Sizes.x12,

@@ -101,7 +101,7 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.lightGrey,
     paddingHorizontal: Sizes.x2,
     paddingTop: Sizes.x4,
     paddingBottom: Sizes.x7,
@@ -111,9 +111,9 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.x2,
     paddingHorizontal: Sizes.x2,
     backgroundColor: Colors.white,
-    borderColor: Colors.orange,
+    borderColor: Colors.black,
     borderWidth: 1,
-    color: Colors.lightGrey,
+    color: Colors.orange,
   },
   flatListContainer: {
     backgroundColor: Colors.white,
