@@ -84,9 +84,6 @@ const HeaderComponent = () => {
         <Text style={styles.title}>Explore</Text>
         <Text style={styles.subTitle}>Best trendy collection!</Text>
       </View>
-      <View style={styles.filterContainer}>
-        <FilterList />
-      </View>
     </View>
   );
 };
@@ -98,6 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     paddingTop: Sizes.x3,
+    paddingHorizontal: Sizes.x3,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
     width: Sizes.x5 / 2,
   },
   textContainer: {
-    paddingVertical: Sizes.x2,
+    paddingTop: Sizes.x2,
   },
   title: {
     fontFamily: FontFamily.regular,
@@ -119,8 +117,5 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.regular,
     fontSize: FontSize.xmedium,
     color: Colors.lightGrey,
-  },
-  filterContainer: {
-    paddingBottom: Sizes.x3,
   },
 });

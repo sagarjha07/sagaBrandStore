@@ -7,13 +7,20 @@ import {
   Sizes,
   productFilterData,
 } from '../../constants';
+import {useDispatch} from 'react-redux';
+import {getPostsAsync} from '../../redux/slices/postsSlice';
 
 const FilterList = () => {
   const [current, setCurrent] = useState(0);
   const ref = useRef();
-  const onFilterClick = index => {
+
+  const dispatch = useDispatch();
+
+  const onFilterClick = (filter, index) => {
     setCurrent(index);
     scrollToFilter(index);
+    if (filter === 'ALL') dispatch(getPostsAsync());
+    else dispatch(getPostsAsync(filter));
   };
 
   const scrollToFilter = index => {
@@ -41,7 +48,7 @@ const FilterList = () => {
               },
             ]}
             onPress={() => {
-              onFilterClick(index);
+              onFilterClick(item, index);
             }}>
             <Text
               style={[
