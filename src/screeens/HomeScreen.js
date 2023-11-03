@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Colors, Sizes} from '../constants';
+import {Colors, FontFamily, FontSize, Sizes} from '../constants';
 import HeaderComponent from '../components/HomeScreenComponents/HeaderComponent';
 import ProductCard from '../components/HomeScreenComponents/ProductCard';
 import databaseService from '../appwrite/DatabaseService';
@@ -37,7 +37,7 @@ const HomeScreen = () => {
           <View style={styles.loadingContainer}>
             <ActivityIndicator size={'large'} color={Colors.orange} />
           </View>
-        ) : (
+        ) : posts && posts.length > 0 ? (
           <FlatList
             data={posts}
             style={styles.productList}
@@ -56,6 +56,16 @@ const HomeScreen = () => {
             numColumns={2}
             keyExtractor={(item, index) => index.toString()}
           />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Image
+              source={require('../../assets/icons/cart.png')}
+              style={styles.img}
+            />
+            <Text style={styles.emptyTxt}>
+              {`No product found with this filter,\nPlease try another filter...`}
+            </Text>
+          </View>
         )}
       </ScrollView>
     </>
@@ -81,5 +91,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderColor: Colors.lightGrey,
     borderBottomWidth: 0.2,
+  },
+  img: {width: Sizes.x12, height: Sizes.x12, opacity: 0.5},
+  emptyContainer: {
+    flex: 1,
+    paddingTop: '40%',
+    alignItems: 'center',
+  },
+  emptyTxt: {
+    textAlign: 'center',
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.small,
   },
 });
