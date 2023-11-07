@@ -126,6 +126,7 @@ const ProductDetailScreen = () => {
       {itemAdded ? (
         <TouchableOpacity
           style={styles.cartFloating}
+          activeOpacity={1}
           onPress={() => {
             navigation.navigate(Routes.CART);
           }}>
