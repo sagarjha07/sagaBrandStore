@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     paddingTop: Sizes.x2,
   },
   title: {
-    color: Colors.black,
+    color: Colors.orange,
     fontFamily: FontFamily.regular,
     fontSize: Sizes.x4,
   },
