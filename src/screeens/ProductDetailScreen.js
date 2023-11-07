@@ -7,29 +7,45 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   Colors,
   FontFamily,
   FontSize,
+  Routes,
   Sizes,
   productSizeArr,
+  showToast,
 } from '../constants';
 import Primarybutton from '../components/common/Primarybutton';
 import NavigationBar from '../components/common/NavigationBar';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, removeFromCart} from '../redux/slices/cartSlice';
 
 const ProductDetailScreen = () => {
-  const [currentSizeIndex, setCurrentSizeIndex] = useState(2);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.cart.items);
+  const [currentSizeIndex, setCurrentSizeIndex] = useState(1);
   const route = useRoute();
-  const {name, price, imageUrl} = route.params;
+  const {name, price, imageUrl, $id, description} = route.params;
+
+  const isItemAlreadyInCart = () => {
+    for (item of cartItems) {
+      if (item.$id === $id) return true;
+    }
+    return false;
+  };
+  const [itemAdded, setIsItemAdded] = useState(isItemAlreadyInCart());
+
   const onSizeClick = index => {
     setCurrentSizeIndex(index);
   };
   return (
     <>
       <ScrollView
-        style={styles.container}
-        showsHorizontalScrollIndicator={false}>
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}>
         <NavigationBar title={name} />
         <Image source={{uri: imageUrl}} style={styles.img} />
         <View style={styles.titleContainer}>
@@ -40,7 +56,7 @@ const ProductDetailScreen = () => {
           </View>
         </View>
         <Text style={styles.sizeTxt}>Size</Text>
-        <View style={styles.sizeContainer}>
+        <View style={[styles.sizeContainer, {marginBottom: Sizes.x1}]}>
           {productSizeArr.map((item, index) => {
             return (
               <TouchableOpacity
@@ -71,18 +87,60 @@ const ProductDetailScreen = () => {
             );
           })}
         </View>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.priceBtn}>₹{price}</Text>
+          <Primarybutton
+            title={itemAdded ? 'Remove From Cart' : 'Add To Cart'}
+            width={'60%'}
+            height={Sizes.x6}
+            onPress={() => {
+              if (itemAdded) {
+                dispatch(removeFromCart($id));
+                setIsItemAdded(false);
+                showToast(
+                  'error',
+                  'Item removed from cart',
+                  'Oh Oh! This is a great product, Please continue shopping',
+                );
+              } else {
+                dispatch(addToCart(route.params));
+                setIsItemAdded(true);
+                showToast(
+                  'success',
+                  'Item added in cart',
+                  'Go to cart and place your order',
+                );
+              }
+            }}
+          />
+        </View>
+        {description && (
+          <>
+            <Text style={styles.sizeTxt}>Description</Text>
+            <View style={styles.sizeContainer}>
+              <Text style={styles.description}>{description}</Text>
+            </View>
+          </>
+        )}
       </ScrollView>
-      <View style={styles.buttonContainer}>
-        <Text style={styles.priceBtn}>₹{price}</Text>
-        <Primarybutton
-          title="Add To Cart"
-          width={'60%'}
-          height={Sizes.x6}
+      {itemAdded ? (
+        <TouchableOpacity
+          style={styles.cartFloating}
           onPress={() => {
-            //TODO: implement onPress
-          }}
-        />
-      </View>
+            navigation.navigate(Routes.CART);
+          }}>
+          <View>
+            <Text style={styles.cartFloatingtxt}>GO TO CART</Text>
+            <Text style={styles.cartFloatingtxtSub}>
+              Item already present in cart
+            </Text>
+          </View>
+          <Image
+            source={require('../../assets/icons/cart.png')}
+            style={styles.cartImg}
+          />
+        </TouchableOpacity>
+      ) : null}
     </>
   );
 };
@@ -93,6 +151,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: Sizes.x3,
     backgroundColor: Colors.white,
+    paddingBottom: Sizes.x9,
   },
   img: {
     height: Sizes.x20 * 2,
@@ -105,7 +164,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flexDirection: 'row',
-    marginTop: Sizes.x2,
+    marginTop: Sizes.x1,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -119,18 +178,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.white,
     paddingVertical: Sizes.x1,
     paddingHorizontal: Sizes.x1 / 2,
     borderRadius: Sizes.x3 / 2,
+    elevation: 10,
   },
   price: {
-    color: Colors.orange,
+    color: Colors.lightGrey,
     fontSize: FontSize.xmedium,
     fontFamily: FontFamily.regular,
   },
   head: {
-    color: Colors.white,
+    color: Colors.orange,
     fontSize: FontSize.medium,
     fontFamily: FontFamily.regular,
     fontWeight: 'bold',
@@ -146,11 +206,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: Sizes.x2,
-    right: Sizes.x3,
-    left: Sizes.x3,
+    paddingTop: Sizes.x1,
+    backgroundColor: Colors.white,
+    paddingBottom: Sizes.x1,
+    elevation: 5,
+    borderRadius: Sizes.x1,
+    paddingHorizontal: Sizes.x2,
+    marginBottom: Sizes.x1,
   },
+  description: {
+    color: Colors.lightGrey,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.medium,
+  },
+
   priceBtn: {
     color: Colors.black,
     fontSize: FontSize.slarge,
@@ -172,5 +241,35 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: FontFamily.regular,
     fontSize: FontSize.large,
+  },
+  cartFloating: {
+    position: 'absolute',
+    bottom: Sizes.x2,
+    left: Sizes.x2,
+    right: Sizes.x2,
+    backgroundColor: Colors.orange,
+    padding: Sizes.x1,
+    borderRadius: Sizes.x2,
+    paddingHorizontal: Sizes.x3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  cartFloatingtxt: {
+    color: Colors.white,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.medium,
+  },
+  cartFloatingtxtSub: {
+    color: Colors.black,
+    fontFamily: FontFamily.regular,
+    fontSize: FontSize.small,
+  },
+  cartImg: {
+    height: Sizes.x4,
+    width: Sizes.x4,
+    marginRight: Sizes.x1,
+    tintColor: Colors.white,
+    objectFit: 'contain',
   },
 });

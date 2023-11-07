@@ -6,9 +6,11 @@ import HomeScreen from '../screeens/HomeScreen';
 import CartScreen from '../screeens/CartScreen';
 import SearchScreen from '../screeens/SearchScreen';
 import SettingsScreen from '../screeens/SettingsScreen';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
+  const cartItems = useSelector(state => state.cart.items);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -68,7 +70,7 @@ const TabNavigator = () => {
                   ]}
                 />
                 <View style={styles.cartNumber}>
-                  <Text style={{color: Colors.white}}>3</Text>
+                  <Text style={{color: Colors.white}}>{cartItems.length}</Text>
                 </View>
               </View>
             );

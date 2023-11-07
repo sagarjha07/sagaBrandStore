@@ -67,5 +67,6 @@ export const showToast = (type, title, subtitle) => {
     type: type,
     text1: title,
     text2: subtitle,
+    visibilityTime: 1500,
   });
 };
