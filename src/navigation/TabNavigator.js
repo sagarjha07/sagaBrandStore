@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: Colors.black,
     position: 'absolute',
-    bottom: Sizes.x3 / 2,
+    bottom: Sizes.x2,
     left: Sizes.x1,
     right: Sizes.x1,
     borderRadius: Sizes.x2,

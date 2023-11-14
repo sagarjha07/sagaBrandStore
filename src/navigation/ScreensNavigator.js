@@ -12,6 +12,9 @@ const ScreensNavigator = () => {
       <Stack.Screen
         name={Routes.PRODUCT_DETAILS}
         component={ProductDetailScreen}
+        options={{
+          animation: 'slide_from_right',
+        }}
       />
     </Stack.Navigator>
   );
