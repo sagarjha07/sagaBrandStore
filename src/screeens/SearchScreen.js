@@ -101,7 +101,7 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: Colors.orange,
     paddingHorizontal: Sizes.x2,
     paddingTop: Sizes.x4,
     paddingBottom: Sizes.x7,
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     backgroundColor: Colors.white,
-    borderRadius: Sizes.x4,
+    borderTopRightRadius: Sizes.x4,
+    borderTopLeftRadius: Sizes.x4,
     marginTop: -Sizes.x4,
     flex: 1,
     paddingHorizontal: Sizes.x3,
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: Sizes.x1,
     fontSize: FontSize.medium,
   },
-  emptyText: {opacity: 0.8, marginTop: 10},
-  img: {width: 120, height: 120, opacity: 0.5},
+  emptyText: {opacity: 0.8, marginTop: Sizes.x1},
+  img: {width: Sizes.x12, height: Sizes.x12, opacity: 0.5},
   emptyContainer: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });

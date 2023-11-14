@@ -1,5 +1,5 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Image, Keyboard, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors, Routes, Sizes} from '../constants';
 import HomeScreen from '../screeens/HomeScreen';
@@ -11,11 +11,18 @@ import {useSelector} from 'react-redux';
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   const cartItems = useSelector(state => state.cart.items);
+  const [bottom, setBottom] = useState(Sizes.x2);
+  const keyboardShowListener = Keyboard.addListener('keyboardDidShow', () => {
+    setBottom(0);
+  });
+  const keyboardHideListener = Keyboard.addListener('keyboardDidHide', () => {
+    setBottom(Sizes.x2);
+  });
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: styles.tabBarStyle,
+        tabBarStyle: {...styles.tabBarStyle, bottom: bottom},
         tabBarActiveTintColor: Colors.orange,
         tabBarInactiveTintColor: Colors.white,
         tabBarShowLabel: false,
