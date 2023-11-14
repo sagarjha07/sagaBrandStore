@@ -1,4 +1,11 @@
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import storageService from '../appwrite/StorageService';
 import {APPWRITE_ONBOARDING_IMAGE_FILE_ID} from '@env';
@@ -23,7 +30,10 @@ const OnboardingScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      bounces={false}
+      showsVerticalScrollIndicator={false}>
       {imageUrl && <Image source={{uri: imageUrl}} style={styles.img} />}
       <View style={styles.textContainer}>
         <Text style={styles.title}>Find The Best Collections</Text>
@@ -50,7 +60,7 @@ const OnboardingScreen = () => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

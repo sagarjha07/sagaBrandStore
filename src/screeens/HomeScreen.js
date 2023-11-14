@@ -85,12 +85,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   filterContainer: {
-    paddingBottom: Sizes.x2,
+    paddingBottom: Sizes.x1,
     paddingLeft: Sizes.x3,
     paddingTop: Sizes.x2,
     backgroundColor: Colors.white,
-    borderColor: Colors.lightGrey,
-    borderBottomWidth: 0.2,
   },
   img: {width: Sizes.x12, height: Sizes.x12, opacity: 0.5},
   emptyContainer: {

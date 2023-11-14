@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     right: Sizes.x1,
     borderRadius: Sizes.x2,
     opacity: 0.8,
+    height: Sizes.x5,
   },
   cartNumber: {
     position: 'absolute',

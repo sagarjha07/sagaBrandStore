@@ -43,7 +43,7 @@ const FilterList = () => {
               styles.filter,
               {
                 marginRight:
-                  index === productFilterData.length - 1 ? Sizes.x3 : Sizes.x2,
+                  index === productFilterData.length - 1 ? Sizes.x3 : Sizes.x1,
                 backgroundColor: current === index ? Colors.orange : null,
               },
             ]}
