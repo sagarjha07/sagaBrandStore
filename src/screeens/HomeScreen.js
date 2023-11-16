@@ -15,6 +15,7 @@ import databaseService from '../appwrite/DatabaseService';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPostsAsync} from '../redux/slices/postsSlice';
 import FilterList from '../components/HomeScreenComponents/FilterList';
+import LottieView from 'lottie-react-native';
 
 const HomeScreen = () => {
   const {posts, loading} = useSelector(state => state.post);
@@ -33,9 +34,15 @@ const HomeScreen = () => {
         <View style={styles.filterContainer}>
           <FilterList />
         </View>
-        {loading === true ? (
+        {loading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size={'large'} color={Colors.orange} />
+            <LottieView
+              style={{flex: 1, height: 400, width: '100%'}}
+              source={require('../../assets/lottie/loading.json')}
+              autoPlay
+              loop
+              resizeMode="conatain"
+            />
           </View>
         ) : posts && posts.length > 0 ? (
           <FlatList
@@ -81,7 +88,6 @@ const styles = StyleSheet.create({
     paddingTop: Sizes.x2,
   },
   loadingContainer: {
-    paddingTop: '50%',
     backgroundColor: Colors.white,
   },
   filterContainer: {
