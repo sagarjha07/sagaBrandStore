@@ -7,11 +7,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Colors, FontFamily, FontSize, Sizes} from '../constants';
 import HeaderComponent from '../components/HomeScreenComponents/HeaderComponent';
 import ProductCard from '../components/HomeScreenComponents/ProductCard';
-import databaseService from '../appwrite/DatabaseService';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPostsAsync} from '../redux/slices/postsSlice';
 import FilterList from '../components/HomeScreenComponents/FilterList';

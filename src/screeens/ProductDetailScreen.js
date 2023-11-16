@@ -103,7 +103,7 @@ const ProductDetailScreen = () => {
                   'Oh Oh! This is a great product, Please continue shopping',
                 );
               } else {
-                dispatch(addToCart(route.params));
+                dispatch(addToCart({...route.params, qty: 1}));
                 setIsItemAdded(true);
                 showToast(
                   'success',
