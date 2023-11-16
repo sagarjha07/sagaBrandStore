@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, FontFamily, FontSize, Sizes} from '../../constants';
 import {useSelector} from 'react-redux';
+import Primarybutton from '../common/Primarybutton';
 
 const CartTotalComponent = () => {
   const cartItems = useSelector(state => state.cart.items);
@@ -48,6 +49,13 @@ const CartTotalComponent = () => {
           marginTop: Sizes.x1,
         }}
       />
+      <View style={styles.btnContainer}>
+        <Primarybutton
+          title="Checkout Now"
+          width={Sizes.x16}
+          height={Sizes.x6}
+        />
+      </View>
     </View>
   );
 };
@@ -81,5 +89,11 @@ const styles = StyleSheet.create({
     color: Colors.black,
     fontSize: FontSize.xmedium,
     fontFamily: FontFamily.regular,
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: Sizes.x1,
   },
 });
