@@ -11,6 +11,7 @@ import React, {useEffect, useState} from 'react';
 import {Colors, FontFamily, FontSize, Sizes} from '../constants';
 import databaseService from '../appwrite/DatabaseService';
 import SearchCard from '../components/SearchScreenComponents/SearchCard';
+import LottieView from 'lottie-react-native';
 
 const SearchScreen = () => {
   const [productsList, setProductsList] = useState([]);
@@ -58,7 +59,13 @@ const SearchScreen = () => {
         )}
         {loading ? (
           <View style={styles.loader}>
-            <ActivityIndicator size={'large'} color={Colors.orange} />
+            <LottieView
+              style={{flex: 1, height: 400, width: '100%'}}
+              source={require('../../assets/lottie/loading.json')}
+              autoPlay
+              loop
+              resizeMode="conatain"
+            />
           </View>
         ) : searchStr !== null &&
           searchStr.length > 0 &&
