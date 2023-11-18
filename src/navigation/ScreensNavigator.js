@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Routes} from '../constants';
 import TabNavigator from './TabNavigator';
 import ProductDetailScreen from '../screeens/ProductDetailScreen';
+import OrderSuccessScreen from '../screeens/OrderSuccessScreen';
 const Stack = createNativeStackNavigator();
 
 const ScreensNavigator = () => {
@@ -14,6 +15,14 @@ const ScreensNavigator = () => {
         component={ProductDetailScreen}
         options={{
           animation: 'slide_from_right',
+        }}
+      />
+      <Stack.Screen
+        name={Routes.ORDER_SUCCESS}
+        component={OrderSuccessScreen}
+        options={{
+          animation: 'slide_from_bottom',
+          presentation: 'modal',
         }}
       />
     </Stack.Navigator>

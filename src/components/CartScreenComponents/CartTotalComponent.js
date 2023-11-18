@@ -1,11 +1,23 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Colors, FontFamily, FontSize, Sizes} from '../../constants';
-import {useSelector} from 'react-redux';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  Routes,
+  Sizes,
+  showToast,
+} from '../../constants';
+import {useDispatch, useSelector} from 'react-redux';
 import Primarybutton from '../common/Primarybutton';
+import databaseService from '../../appwrite/DatabaseService';
+import {useNavigation} from '@react-navigation/native';
+import {emptyCart} from '../../redux/slices/cartSlice';
 
 const CartTotalComponent = () => {
   const cartItems = useSelector(state => state.cart.items);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const totalItemsPrice = () => {
     let totalPriceOfItems = 0;
@@ -15,6 +27,18 @@ const CartTotalComponent = () => {
     return totalPriceOfItems;
   };
   const delivery = 100;
+
+  const onCheckoutBtnPress = async () => {
+    try {
+      const res = await databaseService.createOrder({
+        numOfItems: cartItems.length,
+        totalPayment: totalItemsPrice() + delivery,
+      });
+      navigation.navigate(Routes.ORDER_SUCCESS);
+    } catch (error) {
+      showToast('error', 'Something went wrong', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -54,6 +78,7 @@ const CartTotalComponent = () => {
           title="Checkout Now"
           width={Sizes.x16}
           height={Sizes.x6}
+          onPress={onCheckoutBtnPress}
         />
       </View>
     </View>

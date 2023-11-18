@@ -56,6 +56,7 @@ export const Routes = {
   PRODUCT_DETAILS: 'productDetails',
   LOGIN: 'login',
   SIGNUP: 'signup',
+  ORDER_SUCCESS: 'order_success',
 };
 
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
