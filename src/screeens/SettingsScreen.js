@@ -5,7 +5,7 @@ import {Colors} from '../constants';
 const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>My Profile</Text>
+      <Text>SettingsScreen</Text>
     </View>
   );
 };
