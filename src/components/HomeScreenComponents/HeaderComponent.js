@@ -8,7 +8,14 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {Colors, FontFamily, FontSize, showToast, Sizes} from '../../constants';
+import {
+  Colors,
+  FontFamily,
+  FontSize,
+  showAlert,
+  showToast,
+  Sizes,
+} from '../../constants';
 import FilterList from './FilterList';
 import authService from '../../appwrite/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -39,24 +46,6 @@ const HeaderComponent = () => {
       );
       console.log('error in logout function headerComponent::', error);
     }
-  };
-
-  const showAlert = (title, message, okPress) => {
-    Alert.alert(
-      title,
-      message,
-      [
-        {
-          text: 'Cancel',
-          onPress: () => {},
-          style: 'cancel',
-        },
-        okPress && {text: 'OK', onPress: okPress},
-      ],
-      {
-        cancelable: true,
-      },
-    );
   };
 
   return (

@@ -4,6 +4,7 @@ import {Routes} from '../constants';
 import TabNavigator from './TabNavigator';
 import ProductDetailScreen from '../screeens/ProductDetailScreen';
 import OrderSuccessScreen from '../screeens/OrderSuccessScreen';
+import OrderScreen from '../screeens/OrderScreen';
 const Stack = createNativeStackNavigator();
 
 const ScreensNavigator = () => {
@@ -20,6 +21,14 @@ const ScreensNavigator = () => {
       <Stack.Screen
         name={Routes.ORDER_SUCCESS}
         component={OrderSuccessScreen}
+        options={{
+          animation: 'slide_from_bottom',
+          presentation: 'modal',
+        }}
+      />
+      <Stack.Screen
+        name={Routes.ORDERS}
+        component={OrderScreen}
         options={{
           animation: 'slide_from_bottom',
           presentation: 'modal',

@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 import Toast from 'react-native-toast-message';
 
 export const Colors = {
@@ -57,6 +58,7 @@ export const Routes = {
   LOGIN: 'login',
   SIGNUP: 'signup',
   ORDER_SUCCESS: 'order_success',
+  ORDERS: 'orders',
 };
 
 export const productFilterData = ['ALL', 'MEN', 'WOMEN', 'KIDS', 'OTHERS'];
@@ -70,4 +72,22 @@ export const showToast = (type, title, subtitle) => {
     text2: subtitle,
     visibilityTime: 1500,
   });
+};
+
+export const showAlert = (title, message, okPress) => {
+  Alert.alert(
+    title,
+    message,
+    [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      okPress && {text: 'OK', onPress: okPress},
+    ],
+    {
+      cancelable: true,
+    },
+  );
 };
