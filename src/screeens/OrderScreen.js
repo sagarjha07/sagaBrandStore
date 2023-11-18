@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     paddingHorizontal: Sizes.x3,
-    marginBottom: Sizes.x4,
+    paddingBottom: Sizes.x4,
   },
   flatlist: {
     paddingTop: Sizes.x5,
