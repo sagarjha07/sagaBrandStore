@@ -1,4 +1,4 @@
-## SAGA BRAND STORE APP
+# SAGA BRAND STORE APP
 
 ## App Includes
 - Splash screen
