@@ -1,5 +1,5 @@
 # SAGA BRAND STORE APP
-[An App built in react-native,redux with appwrite service as a backend]
+##An App built in react-native,redux with appwrite service as a backend]
 
 ## App screens
 - Splash screen
