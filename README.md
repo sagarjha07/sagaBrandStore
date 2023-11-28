@@ -1,6 +1,6 @@
 # SAGA BRAND STORE APP
 
-## App Includes
+## App screens
 - Splash screen
 - Signup Screen
 - Login Screen
@@ -10,3 +10,15 @@
 - Orders Screen
 - Orders Success Screen
 - Settings Screen
+
+
+## App flows
+- Authentication
+- Product Listing
+- Single Product Details flow
+- Search products (Debouncing)
+- Add to cart
+- Filters for products segregation
+- Order and Checkout flows
+- Profile details flow
+- All placed Order Details flows
