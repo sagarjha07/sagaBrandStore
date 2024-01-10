@@ -24,4 +24,4 @@
 - Profile details flow
 - All placed Order Details flows
 
-### Lottie animations added for all loading screens and order success screen.
+## Lottie animations added for all loading screens and order success screen.
